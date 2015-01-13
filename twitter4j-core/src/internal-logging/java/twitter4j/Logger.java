@@ -45,6 +45,12 @@ public abstract class Logger {
         if (loggerFactoryImpl != null) {
             loggerFactory = getLoggerFactoryIfAvailable(loggerFactoryImpl, loggerFactoryImpl);
         }
+
+        // use Jetty logger if it's found in the classpath
+        if (null == loggerFactory) {
+            loggerFactory = getLoggerFactoryIfAvailable("org.eclipse.jetty.util.log.Log", "twitter4j.JettyLoggerFactory");
+        }
+/*
         // use SLF4J if it's found in the classpath
         if (null == loggerFactory) {
             loggerFactory = getLoggerFactoryIfAvailable("org.slf4j.impl.StaticLoggerBinder", "twitter4j.SLF4JLoggerFactory");
@@ -61,6 +67,7 @@ public abstract class Logger {
         if (null == loggerFactory) {
             loggerFactory = getLoggerFactoryIfAvailable("com.google.appengine.api.urlfetch.URLFetchService", "twitter4j.JULLoggerFactory");
         }
+*/
         // otherwise, use the default logger
         if (null == loggerFactory) {
             loggerFactory = new StdOutLoggerFactory();
