@@ -134,6 +134,8 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
         } catch (SecurityException ignore) {
         } catch (FileNotFoundException ignore) {
         }
+        // override with fankave properties.
+        loadProperties(props, Configuration.class.getResourceAsStream("/etc/fankave/conf/" + TWITTER4J_PROPERTIES));
 
         setFieldsWithTreePath(props, treePath);
     }
